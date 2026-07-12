@@ -7,7 +7,7 @@ namespace ns{
 
  struct Spawned{
    pid_t pid;
-   char* stack; // caller owns this, free() it after waitpid()
+   char* stack; // caller owns this, i used free() after waitpid()
  };
  
  Spawned spawn_contained(Config& config);

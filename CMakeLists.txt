@@ -10,4 +10,5 @@ add_executable(crun
     src/main.cpp
     src/namespaces.cpp
     src/child.cpp
+    src/mounts.cpp
 )

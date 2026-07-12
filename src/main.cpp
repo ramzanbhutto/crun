@@ -5,15 +5,12 @@
 #include "config.hpp"
 #include "namespaces.hpp"
 #include "util.hpp"
+#include "mounts.hpp"
 
 namespace{
   void usage(const char* prog){
-    std::cerr<<"usage: "<<prog<<" -m <rootfs> -u <uid> -c <cmd> [args...]\n";
+    std::cerr<<"usage: sudo "<<prog<<" -m <rootfs> -u <uid> -c <cmd> [args...]\n";
     std::exit(1);
-  }
-
-  std::string make_hostname(){
-    return " crun-"+std::to_string(getpid()); 
   }
 
 }
@@ -24,7 +21,7 @@ int main(int argc, char**argv){
   while((opt=getopt(argc,argv,"m:u:c:"))!=-1){
     switch(opt){
       case 'm':
-           config.rootfs= optarg;
+           config.rootfs= std::filesystem::absolute(optarg).string();
            break;
       case 'u':
            config.uid= static_cast<uid_t>(std::stoi(optarg));
@@ -40,7 +37,6 @@ int main(int argc, char**argv){
   }
 
   if(config.argv.empty()) usage(argv[0]);
-  config.hostname= make_hostname();
 
   auto spawned= ns::spawn_contained(config);
   log_step("cloned child, pid "+ std::to_string(spawned.pid));

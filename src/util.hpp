@@ -7,7 +7,7 @@
 #include<cstdlib>
 
 inline void die(const std::string& what){
-  std::cerr<<"=> "<<what<<"failed: "<<std::strerror(errno)<<"\n";
+  std::cerr<<"=> "<<what<<" failed: "<<std::strerror(errno)<<"\n";
   std::exit(1);
 }
 
