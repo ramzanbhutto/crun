@@ -6,6 +6,7 @@
 #include "namespaces.hpp"
 #include "util.hpp"
 #include "mounts.hpp"
+#include "cgroup.hpp"
 
 namespace{
   void usage(const char* prog){
@@ -38,6 +39,10 @@ int main(int argc, char**argv){
 
   if(config.argv.empty()) usage(argv[0]);
 
+  std::string cg_name= "crun-" + std::to_string(getpid());
+  Cgroup cgroup(cg_name,config); // joins us to it now. child inherits it via clone()
+
+  
   auto spawned= ns::spawn_contained(config);
   log_step("cloned child, pid "+ std::to_string(spawned.pid));
 
@@ -46,5 +51,6 @@ int main(int argc, char**argv){
 
   free(spawned.stack);
 
+  // cgroup goes out of scope here at end of main() - destructor runs automatically, moves us out, rmdir's the cgroup. No manual cleanup call is needed
   return WIFEXITED(status) ? WEXITSTATUS(status) : 1;
 }

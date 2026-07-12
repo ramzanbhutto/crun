@@ -11,4 +11,5 @@ add_executable(crun
     src/namespaces.cpp
     src/child.cpp
     src/mounts.cpp
+    src/cgroup.cpp
 )
