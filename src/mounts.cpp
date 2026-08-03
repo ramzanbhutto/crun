@@ -13,7 +13,7 @@ namespace{
 namespace mounts{
  void pivot_root(Config& config){
    log_step("remounting / as MS_PRIVATE");
-   // stop mount events here from propagating to/from the hosts mount namespace so no event can see other events subtree that is visible in linux mount points on MS_SHARED
+   // stop mount events here from propagating to/from the hosts mount namespace so no event can see other events subtree that is visible in linux mount points on MS_SHARED mount flag
    if(::mount(nullptr,"/",nullptr, MS_REC | MS_PRIVATE, nullptr)==-1) die("remounting / as private");  // MS_PRIVATE = stops propagating  , MS_REC= makes that apply recursively to everything mounted under / 
    
    log_step("bind-mounting rootfs onto itself");

@@ -8,7 +8,7 @@
 namespace fs= std::filesystem;
 
 namespace{
-  constexpr const char* CGROUP_ROOT= "/sys/fs/cgroup"; // v2 unified hierarchy - one tree, not per-controller like v1
+  constexpr const char* CGROUP_ROOT= "/sys/fs/cgroup"; // v2 single unified hierarchy - one tree, not per-controller like v1
 }
 
 Cgroup::Cgroup(const std::string& name, const Config& config) : path(std::string(CGROUP_ROOT) + "/" + name){

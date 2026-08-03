@@ -7,7 +7,7 @@
 struct Config{
   uid_t uid=0;
   std::string hostname;
-  std::string rootfs;  // -m, not used until mounts.cpp lands
+  std::string rootfs; 
   std::vector<std::string> argv;  // command + args to exec inside
   
   long mem_limit_mb= 512;

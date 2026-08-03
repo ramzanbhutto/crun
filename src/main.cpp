@@ -1,11 +1,12 @@
 #include<iostream>
 #include<cstdlib>
 #include<sys/wait.h>
+#include<filesystem>
+#include<unistd.h>
 #include<getopt.h>
 #include "config.hpp"
 #include "namespaces.hpp"
 #include "util.hpp"
-#include "mounts.hpp"
 #include "cgroup.hpp"
 
 namespace{
@@ -47,7 +48,7 @@ int main(int argc, char**argv){
   log_step("cloned child, pid "+ std::to_string(spawned.pid));
 
   int status=0;
-  if(waitpid(spawned.pid, &status, 0)==1) die("waitpid");
+  if(waitpid(spawned.pid, &status, 0)==pid_t(-1)) die("waitpid");
 
   free(spawned.stack);
 
