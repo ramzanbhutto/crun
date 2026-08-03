@@ -58,7 +58,8 @@ ls /sys/fs/cgroup/ | grep crun
 
 ## Status
 
-Working: namespaces, mount isolation, cgroup v2.
-Not yet: capabilities, user namespaces(`-u` flag in this version parses, but does nothing, as I have not added user namespaces yet), networking, socketpair handshake between parent/child.
+Completed: namespaces, mount isolation, cgroup v2. 
+
+Plans: capabilities, user namespaces (`-u` flag in this version parses, but does nothing, as I have not added user namespaces yet) , networking, socketpair handshake between parent/child.
 
 This is a learning project, not something you should run in production. Expect sharp edges.
